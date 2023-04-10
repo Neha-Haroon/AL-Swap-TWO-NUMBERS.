@@ -1,0 +1,61 @@
+dosseg
+.model small
+.stack 100h
+.data		;vars
+
+intro db 'Swap Given Numbers :$'
+
+.code
+main proc	
+		;CODE
+mov ax,@data	;CONNECT .DATA AND .CODE
+mov ds,ax	
+
+
+mov dx, offset intro	;PRINT INTRO
+
+mov cx,1	; set counter to 1
+
+printstr:	;DEFINE STR PRINT LOOP
+	mov ah,9	;print str
+	int 21h
+
+	mov dx,10	;new line feed
+	mov ah,2
+	int 21h
+
+	mov dx,13	;carriage return
+	mov ah,2
+	int 21h
+
+loop printstr 
+
+mov ax,'2'	;SEND 2 TO STACK
+push ax
+
+mov dx,ax
+mov ah,2
+int 21h
+
+mov bx,'1'	;SEND 1 TO STACK
+push bx
+
+mov dx,bx
+mov ah,2
+int 21h
+
+pop ax		; POP 1
+mov dx,ax	;PRINT 1
+mov ah,2
+int 21h
+
+pop bx		; POP 2
+mov dx,bx	;PRINT 1
+mov ah,2
+int 21h
+
+mov ah,4ch	;end
+int 21h
+
+main endp
+end main
